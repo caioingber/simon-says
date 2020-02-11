@@ -30,6 +30,22 @@ Once there is an additional value in the array, another eventListener is added w
 The user clicks on a block, the index of the block (using e.target) is then pushed into a user array.
 Once the value has been pushed, function is invoked to compareArrays utilizing a for loop set to the length of the computer Array
 
-
-
 */
+
+//defining elements
+
+let simon = []
+let player = []
+let blocks = document.querySelectorAll('.block')
+
+let colors = ['yellow', 'blue', 'red', 'green']
+
+
+//assigning IDs for each block
+
+for (let i=0; i < blocks.length; i++) {
+    blocks[i].setAttribute('dataset', i + 1)
+    blocks[i].setAttribute('id', colors[i])
+    blocks[i].style.backgroundColor = colors[i]
+}
+
