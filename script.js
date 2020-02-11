@@ -45,8 +45,12 @@ let colors = ['yellow', 'blue', 'red', 'green']
 
 for (let i=0; i < blocks.length; i++) {
     blocks[i].setAttribute('dataset', i)
+    blocks[i].blockPosition = []
+    blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
-    blocks[i].style.backgroundColor = colors[i]
+    //event listener for player clicksa
+    blocks[i].addEventListener('click', playerTurn)
+    // blocks[i].style.backgroundColor = colors[i]
 }
 
 let newGame = document.querySelector('#new-game')
@@ -55,25 +59,30 @@ newGame.addEventListener('click', startGame)
 
 // Adding values to simon array
 function startGame() {
+    simon = []
+    player = []
     simon.push(Math.floor(Math.random() * 4))
     // showValues()
 }
 
 // function showValues() {
 //     for (let i=0; i < simon.length; i++) {
-//         // console.log(blocks[simon[i]].classList[1])
+//         blocks[simon[i]].classList.add('highlight')
 //     }
-//     let color = simon.pop()
-//     console.log(blocks[color].classList[1])
-//     simon.push(color)
-//     // console.log(simon)
+//     console.log(simon)
 //     // newRound()
 // }
+
+function playerTurn(e) {
+    e.preventDefault()
+    console.dir(e.target)
+    player.push(e.target.blockPosition[0])
+    console.log(player)
+}
 
 function newRound() {
     simon.push(Math.floor(Math.random() * 4))
     let color = simon.pop()
     console.log(blocks[color].classList[1])
     simon.push(color)
-    // showValues()
 }
