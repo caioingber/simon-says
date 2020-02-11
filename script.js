@@ -85,53 +85,56 @@ function showValues() {
     for (let i = 0; i < simon.length; i++) {
         highlight(blocks[simon[i]], i)
     } 
-    console.log(simon)
+    // console.log(simon)
     // newRound()
 }
 // function addHighlight(value) {
 //     setTimeout(function() {value.classList.add('highlight')}, 500) 
 // }
 
-function highlight(value, interval) {
-    setTimeout(function() {value.classList.add('highlight')}, interval * 500) 
+function highlight(value, interval) { 
+    setTimeout(function() {value.classList.add('highlight')}, interval * 500)
     setTimeout(function() {value.classList.remove('highlight')}, (interval * 500) + 500) 
 }
 
 function playerTurn(e) {
     e.preventDefault()
     // console.dir(e.target)
-    console.log(e.target.classList[1])
+    // console.log(e.target.classList[1])
     player.push(e.target.blockPosition[0])
     console.log(player)
     compareValues()
 }
 
 function compareValues() {
-    let count = 0
-    for (let i=0; i < simon.length; i++) {
-        if(simon[i] === player[i]) {
-            count = count + 1
-            if(count === simon.length) {
-                score = score + 1
-                playerWin = true
-                newRound()
-                player = []
-                break
-            } else {
-                resetListen()
-            }
-        } else {
-            console.log("You Lose")
-            simon = []
-            player = []
+    if (player.length === simon.length) {
+        let count = 0
+        for (let i=0; i < player.length; i++) {
+            console.log(simon)
+            console.log(player)
+            if(simon[i] === player[i]) {
+                count++
+            } 
         }
+        if (count === simon.length) {
+            newRound()
+            player = []
+        } else {
+            alert("You lose!")
+            player = []
+            simon = []
+        }
+    } else {
+        resetListen()
     }
 }
+        
+        
 
 function newRound() {
     simon.push(Math.floor(Math.random() * 4))
     let color = simon.pop()
-    console.log(blocks[color].classList[1])
+    // console.log(blocks[color].classList[1])
     simon.push(color)
     console.log(simon)
     showValues()

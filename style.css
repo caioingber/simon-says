@@ -16,13 +16,20 @@ body {
     grid-template-rows: 1fr 1fr;
     grid-gap: 10px;
     background-color: white;
+    border: 5px solid black;
+    border-radius: 100%;
     height: 400px;
     width: 400px;
 }
 
-.block {
+h1 {
+    position: absolute;
+    top: 47%;
+    text-align: center;
     border: 2px solid black;
-    /* border-radius: 25%; */
+    border-radius: 100%;
+    margin: 0;
+    padding: 2%;
 }
 
 .red {
@@ -53,7 +60,7 @@ body {
 }
 
 .highlight {
-    opacity: .3;
+    opacity: .5;
     transition-delay: .3s;
 }
 
