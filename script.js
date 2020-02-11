@@ -37,6 +37,8 @@ Once the value has been pushed, function is invoked to compareArrays utilizing a
 let simon = []
 let player = []
 let blocks = document.querySelectorAll('.block')
+let score = 0
+let playerWin = false
 
 let colors = ['yellow', 'blue', 'red', 'green']
 
@@ -75,9 +77,31 @@ function startGame() {
 
 function playerTurn(e) {
     e.preventDefault()
-    console.dir(e.target)
+    // console.dir(e.target)
+    console.log(e.target.classList[1])
     player.push(e.target.blockPosition[0])
     console.log(player)
+    if(player.length === simon.length) {
+        compareValues()
+    }
+}
+
+function compareValues() {
+    let count = 0
+    for (let i=0; i < simon.length; i++) {
+        if(simon[i] === player[i]) {
+            count = count + 1
+            if(count === simon.length) {
+                score = score + 1
+                playerWin = true
+                newRound()
+                player = []
+                break
+            }
+        } else {
+            console.log("You Lose")
+        }
+    }
 }
 
 function newRound() {
@@ -85,4 +109,5 @@ function newRound() {
     let color = simon.pop()
     console.log(blocks[color].classList[1])
     simon.push(color)
+    console.log(simon)
 }
