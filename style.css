@@ -10,7 +10,7 @@ body {
 }
 
 #simon {
-    margin-top: 50px;
+    margin: 50px 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -23,4 +23,32 @@ body {
 .block {
     border: 2px solid black;
     border-radius: 5%;
+}
+
+.red {
+    background-color: red;
+    transition: 1s;
+}
+.green {
+    background-color: green;
+    transition: 1s;
+}
+
+.yellow {
+    background-color: yellow;
+    transition: 1s;
+}
+
+.blue {
+    background-color: blue;
+    transition: 1s;
+}
+
+.highlight {
+    background-color: white;
+    transition: 1s;
+}
+
+#new-game{
+    cursor: pointer;
 }

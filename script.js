@@ -44,16 +44,36 @@ let colors = ['yellow', 'blue', 'red', 'green']
 //assigning IDs for each block
 
 for (let i=0; i < blocks.length; i++) {
-    blocks[i].setAttribute('dataset', i + 1)
-    blocks[i].setAttribute('id', colors[i])
+    blocks[i].setAttribute('dataset', i)
+    blocks[i].classList.add(colors[i])
     blocks[i].style.backgroundColor = colors[i]
 }
 
-function randomValue() {
+let newGame = document.querySelector('#new-game')
+
+newGame.addEventListener('click', startGame)
+
+// Adding values to simon array
+function startGame() {
     simon.push(Math.floor(Math.random() * 4))
-    console.log(simon)
+    // showValues()
 }
 
-randomValue()
-randomValue()
-randomValue()
+// function showValues() {
+//     for (let i=0; i < simon.length; i++) {
+//         // console.log(blocks[simon[i]].classList[1])
+//     }
+//     let color = simon.pop()
+//     console.log(blocks[color].classList[1])
+//     simon.push(color)
+//     // console.log(simon)
+//     // newRound()
+// }
+
+function newRound() {
+    simon.push(Math.floor(Math.random() * 4))
+    let color = simon.pop()
+    console.log(blocks[color].classList[1])
+    simon.push(color)
+    // showValues()
+}
