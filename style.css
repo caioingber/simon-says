@@ -27,26 +27,28 @@ body {
 
 .red {
     background-color: red;
-    transition: 1s;
+    transition-delay: .3s;
 }
 .green {
     background-color: green;
-    transition: 1s;
+    transition-delay: .3s;
 }
 
 .yellow {
     background-color: yellow;
-    transition: 1s;
+    transition-delay: .3s;
+
 }
 
 .blue {
     background-color: blue;
-    transition: 1s;
+    transition-delay: .3s;
 }
 
 .highlight {
     background-color: white;
-    transition: 1s;
+    opacity: .3;
+    transition-delay: .3s;
 }
 
 #new-game{

@@ -45,15 +45,28 @@ let colors = ['yellow', 'blue', 'red', 'green']
 
 //assigning IDs for each block
 
+
+//Function to reset event listener
+resetListen = () => {
+    for (let i=0; i < blocks.length; i++) {
+        blocks[i].addEventListener('click', playerTurn)
+    }
+}
+
+
+
 for (let i=0; i < blocks.length; i++) {
     blocks[i].setAttribute('dataset', i)
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
-    //event listener for player clicksa
     blocks[i].addEventListener('click', playerTurn)
+    //event listener for player clicksa
+    
     // blocks[i].style.backgroundColor = colors[i]
 }
+
+
 
 let newGame = document.querySelector('#new-game')
 
@@ -64,16 +77,25 @@ function startGame() {
     simon = []
     player = []
     simon.push(Math.floor(Math.random() * 4))
-    // showValues()
+    resetListen()
+    showValues()
 }
 
-// function showValues() {
-//     for (let i=0; i < simon.length; i++) {
-//         blocks[simon[i]].classList.add('highlight')
-//     }
-//     console.log(simon)
-//     // newRound()
+function showValues() {
+    for (let i = 0; i < simon.length; i++) {
+        highlight(blocks[simon[i]], i)
+    } 
+    console.log(simon)
+    // newRound()
+}
+// function addHighlight(value) {
+//     setTimeout(function() {value.classList.add('highlight')}, 500) 
 // }
+
+function highlight(value, interval) {
+    setTimeout(function() {value.classList.add('highlight')}, interval * 500) 
+    setTimeout(function() {value.classList.remove('highlight')}, (interval * 500) + 500) 
+}
 
 function playerTurn(e) {
     e.preventDefault()
@@ -81,9 +103,7 @@ function playerTurn(e) {
     console.log(e.target.classList[1])
     player.push(e.target.blockPosition[0])
     console.log(player)
-    if(player.length === simon.length) {
-        compareValues()
-    }
+    compareValues()
 }
 
 function compareValues() {
@@ -97,9 +117,13 @@ function compareValues() {
                 newRound()
                 player = []
                 break
+            } else {
+                resetListen()
             }
         } else {
             console.log("You Lose")
+            simon = []
+            player = []
         }
     }
 }
@@ -110,4 +134,5 @@ function newRound() {
     console.log(blocks[color].classList[1])
     simon.push(color)
     console.log(simon)
+    showValues()
 }
