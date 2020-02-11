@@ -49,3 +49,11 @@ for (let i=0; i < blocks.length; i++) {
     blocks[i].style.backgroundColor = colors[i]
 }
 
+function randomValue() {
+    simon.push(Math.floor(Math.random() * 4))
+    console.log(simon)
+}
+
+randomValue()
+randomValue()
+randomValue()
