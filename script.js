@@ -1,46 +1,9 @@
-/* SIMON PROJECT
-
-Components
-- 4 div blocks, each a different color
-- A 'Start' Game button
-- A Score section
-
-Objects
-
-- The Game
-    - Contains: Player, Simon, Title, Score, Start button
-    - Methods
-        - Score tracker
-        - Comparison function
-        - Event listeners
-- Simon
-    - Contains: the board itself, each block, a 'random' assignment method, and an array of choices
-- Player
-    - Contains: name, array of choice, method to add choices to array
-
-
-Gameplay (dumb version)
-
-- Page loads, with 4 blocks. Function to startGame has event listener on 'Start Game' button. 
-- startGame begins with a score of 0, and initiates a newRound function. 
-- Once the newRound begins, it assigns a random number using Math Floor(Math Random ()) between 0 - 3 
-(each div contains a block in an array) and adds that number to a new array. 
-Once there is an additional value in the array, another eventListener is added waiting for a click action from the user.
-
-The user clicks on a block, the index of the block (using e.target) is then pushed into a user array.
-Once the value has been pushed, function is invoked to compareArrays utilizing a for loop set to the length of the computer Array
-
-*/
-
-//defining elements
-
 let simon = []
 let player = []
 let blocks = document.querySelectorAll('.block')
 let score = 0
 let gameScore = document.querySelector('#score')
-let playerWin = false
-
+let newGame = document.querySelector('#new-game')
 let colors = ['yellow', 'blue', 'red', 'green']
 
 
@@ -51,19 +14,12 @@ resetListen = () => {
     }
 }
 
-
 for (let i=0; i < blocks.length; i++) {
     blocks[i].setAttribute('dataset', i)
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
-    
-    // blocks[i].style.backgroundColor = colors[i]
 }
-
-
-
-let newGame = document.querySelector('#new-game')
 
 newGame.addEventListener('click', startGame)
 
@@ -72,6 +28,7 @@ function startGame() {
     simon = []
     player = []
     gameScore.innerText = 0
+    loser.innerText = ""
     score = 0
     simon.push(Math.floor(Math.random() * 4))
     resetListen()
@@ -93,8 +50,6 @@ function highlight(value, interval) {
 
 function playerTurn(e) {
     e.preventDefault()
-    // console.dir(e.target)
-    // console.log(e.target.classList[1])
     player.push(e.target.blockPosition[0])
     console.log(player)
     compareValues()
@@ -118,36 +73,32 @@ function compareValues() {
             count = 0
             gameScore.innerText = score
         } else {
-            alert("You lose!")
-            player = []
-            simon = []
-            for (let i=0; i < blocks.length; i++) {
-                blocks[i].removeEventListener('click', playerTurn)
-            }
+            loserSays()
         }
     } else {
-        // let count = 0
         if(simon[count] === player[count]) {
             count++
             resetListen()
         } else {
-            alert("You lose!")
-            player = []
-            simon = []
-            for (let i=0; i < blocks.length; i++) {
-                blocks[i].removeEventListener('click', playerTurn)
-            }
+            loserSays()
         }
-        
     }
 }
         
-        
+function loserSays () {
+    let loser = document.querySelector('#loser')
+    loser.innerText = "Sorry, Try Again 😎"
+    count = 0
+    player = []
+    simon = []
+    for (let i=0; i < blocks.length; i++) {
+        blocks[i].removeEventListener('click', playerTurn)
+    }
+}        
 
 function newRound() {
     simon.push(Math.floor(Math.random() * 4))
     let color = simon.pop()
-    // console.log(blocks[color].classList[1])
     simon.push(color)
     console.log(simon)
     showValues()
