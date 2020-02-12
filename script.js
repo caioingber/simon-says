@@ -10,6 +10,7 @@ let colors = ['yellow', 'blue', 'red', 'green']
 resetListen = () => {
     for (let i=0; i < blocks.length; i++) {
         blocks[i].addEventListener('click', playerTurn)
+        blocks[i].addEventListener('click', showClick)
     }
 }
 
@@ -24,53 +25,84 @@ newGame.addEventListener('click', startGame)
 
 // Adding values to simon array
 function startGame() {
+    for (let i=0; i < blocks.length; i++) {
+        blocks[i].style.cursor = 'pointer'
+    }
     simon = []
     player = []
     gameScore.innerText = 0
     loser.innerText = ""
     score = 0
     simon.push(Math.floor(Math.random() * 4))
-    resetListen()
     showValues()
 }
 
 
 function showValues() {
-    for (i=0; i < simon.length; i++) {
+    for (let i=0; i < simon.length; i++) {
         highlight(blocks[simon[i]], i)
     }
-    // console.log(simon)
+}
+
+function removeHover(e) {
+    e.preventDefault()
+    e.target.style.opacity = null
+}
+
+function hoverButton(e) {
+    e.preventDefault()
+    e.target.style.opacity = .5
+    console.dir(e.target)
 }
 
 function highlight(value, interval) { 
+    console.log(value)
     setTimeout(function() {value.classList.add('highlight')}, (interval * 750) + 250)
     setTimeout(function() {value.classList.remove('highlight')}, (interval * 750) + 750)
+    setTimeout(resetListen, (interval * 750) + 750)
 }
 
+let header = document.querySelector('h1')
+header.addEventListener('click', showClick)
+
+function showClick() {
+    highlight(this, -.5)
+}
+
+let pIndex = 0
 function playerTurn(e) {
+    // highlight when player clicks block
     e.preventDefault()
     player.push(e.target.blockPosition[0])
-    console.log(player)
+    console.log(pIndex)
     compareValues()
 }
 
 let count = 0
 function compareValues() {
+    console.log(simon)
+    console.log(player)
     if (player.length === simon.length) {
         count = 0
         for (let i=0; i < player.length; i++) {
-            console.log(simon)
-            console.log(player)
             if(simon[i] === player[i]) {
                 count++
             } 
         }
         if (count === simon.length) {
-            newRound()
-            player = []
             score += 1
-            count = 0
-            gameScore.innerText = score
+            if(score === 10) {
+                loser.innerText = "Congratulations, You've Won! 🙌🙌🙌"
+                for (let i=0; i < blocks.length; i++) {
+                    gameScore.innerText = score
+                    blocks[i].removeEventListener('click', playerTurn)
+                }
+            } else {
+                newRound()
+                player = []
+                count = 0
+                gameScore.innerText = score
+            }
         } else {
             loserSays()
         }
@@ -92,6 +124,8 @@ function loserSays () {
     simon = []
     for (let i=0; i < blocks.length; i++) {
         blocks[i].removeEventListener('click', playerTurn)
+        blocks[i].addEventListener('click', showClick)
+        blocks[i].style.cursor = null
     }
 }        
 
@@ -102,5 +136,7 @@ function newRound() {
         simon.push(color)
         console.log(simon)
         showValues()
-    }, 1000)
+        resetListen()
+    }, 1500)
+        pIndex = 0
 }
