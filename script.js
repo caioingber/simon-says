@@ -6,7 +6,6 @@ let gameScore = document.querySelector('#score')
 let newGame = document.querySelector('#new-game')
 let colors = ['yellow', 'blue', 'red', 'green']
 
-
 //Function to reset event listener
 resetListen = () => {
     for (let i=0; i < blocks.length; i++) {
@@ -97,9 +96,11 @@ function loserSays () {
 }        
 
 function newRound() {
-    simon.push(Math.floor(Math.random() * 4))
-    let color = simon.pop()
-    simon.push(color)
-    console.log(simon)
-    showValues()
+    setTimeout(function() {
+        simon.push(Math.floor(Math.random() * 4))
+        let color = simon.pop()
+        simon.push(color)
+        console.log(simon)
+        showValues()
+    }, 1000)
 }
