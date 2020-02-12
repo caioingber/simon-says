@@ -43,16 +43,12 @@ let playerWin = false
 let colors = ['yellow', 'blue', 'red', 'green']
 
 
-//assigning IDs for each block
-
-
 //Function to reset event listener
 resetListen = () => {
     for (let i=0; i < blocks.length; i++) {
         blocks[i].addEventListener('click', playerTurn)
     }
 }
-
 
 
 for (let i=0; i < blocks.length; i++) {
@@ -82,19 +78,15 @@ function startGame() {
 }
 
 function showValues() {
-    for (let i = 0; i < simon.length; i++) {
+    for (i=0; i < simon.length; i++) {
         highlight(blocks[simon[i]], i)
-    } 
+    }
     // console.log(simon)
-    // newRound()
 }
-// function addHighlight(value) {
-//     setTimeout(function() {value.classList.add('highlight')}, 500) 
-// }
 
 function highlight(value, interval) { 
-    setTimeout(function() {value.classList.add('highlight')}, interval * 500)
-    setTimeout(function() {value.classList.remove('highlight')}, (interval * 500) + 500) 
+    setTimeout(function() {value.classList.add('highlight')}, (interval * 500) + 250)
+    setTimeout(function() {value.classList.remove('highlight')}, (interval * 500) + 500)
 }
 
 function playerTurn(e) {

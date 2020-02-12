@@ -34,34 +34,38 @@ h1 {
 
 .red {
     background-color: red;
-    transition-delay: .3s;
+    opacity: 1;
+    transition: opacity .25s linear;
     border-bottom-left-radius: 100%;
     border-top-right-radius: 100%;
 }
 .green {
     background-color: green;
-    transition-delay: .3s;
+    opacity: 1;
+    transition: opacity .25s linear;
     border-bottom-right-radius: 100%;
     border-top-left-radius: 100%;
 }
 
 .yellow {
     background-color: yellow;
-    transition-delay: .3s;
+    opacity: 1;
+    transition: opacity .25s linear;
     border-top-left-radius: 100%;
     border-bottom-right-radius: 100%;
 }
 
 .blue {
     background-color: blue;
-    transition-delay: .3s;
+    opacity: 1;
+    transition: opacity .25s linear;
     border-top-right-radius: 100%;
     border-bottom-left-radius: 100%;
 }
 
 .highlight {
+    transition: opacity .5s linear;
     opacity: .5;
-    transition-delay: .3s;
 }
 
 #new-game{
