@@ -38,6 +38,7 @@ let simon = []
 let player = []
 let blocks = document.querySelectorAll('.block')
 let score = 0
+let gameScore = document.querySelector('#score')
 let playerWin = false
 
 let colors = ['yellow', 'blue', 'red', 'green']
@@ -56,8 +57,6 @@ for (let i=0; i < blocks.length; i++) {
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
-    blocks[i].addEventListener('click', playerTurn)
-    //event listener for player clicksa
     
     // blocks[i].style.backgroundColor = colors[i]
 }
@@ -72,10 +71,13 @@ newGame.addEventListener('click', startGame)
 function startGame() {
     simon = []
     player = []
+    gameScore.innerText = 0
+    score = 0
     simon.push(Math.floor(Math.random() * 4))
     resetListen()
     showValues()
 }
+
 
 function showValues() {
     for (i=0; i < simon.length; i++) {
@@ -85,8 +87,8 @@ function showValues() {
 }
 
 function highlight(value, interval) { 
-    setTimeout(function() {value.classList.add('highlight')}, (interval * 500) + 250)
-    setTimeout(function() {value.classList.remove('highlight')}, (interval * 500) + 500)
+    setTimeout(function() {value.classList.add('highlight')}, (interval * 750) + 250)
+    setTimeout(function() {value.classList.remove('highlight')}, (interval * 750) + 750)
 }
 
 function playerTurn(e) {
@@ -98,9 +100,10 @@ function playerTurn(e) {
     compareValues()
 }
 
+let count = 0
 function compareValues() {
     if (player.length === simon.length) {
-        let count = 0
+        count = 0
         for (let i=0; i < player.length; i++) {
             console.log(simon)
             console.log(player)
@@ -111,13 +114,31 @@ function compareValues() {
         if (count === simon.length) {
             newRound()
             player = []
+            score += 1
+            count = 0
+            gameScore.innerText = score
         } else {
             alert("You lose!")
             player = []
             simon = []
+            for (let i=0; i < blocks.length; i++) {
+                blocks[i].removeEventListener('click', playerTurn)
+            }
         }
     } else {
-        resetListen()
+        // let count = 0
+        if(simon[count] === player[count]) {
+            count++
+            resetListen()
+        } else {
+            alert("You lose!")
+            player = []
+            simon = []
+            for (let i=0; i < blocks.length; i++) {
+                blocks[i].removeEventListener('click', playerTurn)
+            }
+        }
+        
     }
 }
         
