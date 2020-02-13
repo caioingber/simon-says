@@ -7,6 +7,8 @@ let gameScore = document.querySelector('#score')
 let newGame = document.querySelector('#new-game')
 let colors = ['yellow', 'blue', 'red', 'green']
 let sounds = document.querySelectorAll('.sounds')
+let gameBoard = document.querySelector('#simon')
+let mid = document.querySelector('.middle')
 
 resetListen = () => {
     for (let i=0; i < blocks.length; i++) {
@@ -16,17 +18,21 @@ resetListen = () => {
     }
 }
 
-for (let i=0; i < blocks.length; i++) {
+for (let i= blocks.length - 1; i >= 0 ; i--) {
     blocks[i].setAttribute('dataset', i)
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
-    blocks[i].classList.add(colors[i])
+    blocks[i].classList.add(colors[Math.floor(i)])
+    let randomColor = Math.floor(Math.random()*16777215).toString(16)
+    blocks[i].style.backgroundColor = '#' + randomColor
     blocks[i].sound = sounds[i]
 }
 
 newGame.addEventListener('click', startGame)
 
 function startGame() {
+    gameBoard.classList.remove('rotate')
+    mid.classList.remove('rotate')
     gameWon = false
     simon = []
     player = []
@@ -86,9 +92,11 @@ function compareValues() {
                 loser.innerText = "Congratulations, You've Won! 🙌🙌🙌"
                 gameScore.innerText = score
                 gameWon = true
-                for (let i=0; i < blocks.length; i++) {
-                    highlight(blocks[i], i)
-                }
+                mid.classList.add('rotate')
+                gameBoard.classList.add('rotate')
+                // for (let i=0; i < blocks.length; i++) {
+                //     highlight(blocks[i], i)
+                // }
             } else {
                 newRound()
                 player = []
