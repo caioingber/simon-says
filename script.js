@@ -11,22 +11,30 @@ let gameBoard = document.querySelector('#simon')
 let mid = document.querySelector('.middle')
 let womp = document.querySelector('#womp')
 let horn = document.querySelector('#horn')
+let simonTurn = false;
 
-resetListen = () => {
-    for (let i=0; i < blocks.length; i++) {
-        blocks[i].addEventListener('click', playerTurn)
-        blocks[i].addEventListener('click', showClick)
-        blocks[i].style.cursor = 'pointer'
-    }
+
+function resetListen () {
+    setTimeout(function(){
+        for (let i=0; i < blocks.length; i++) {
+            blocks[i].addEventListener('click', playerTurn)
+            blocks[i].addEventListener('click', showClick)
+            blocks[i].style.pointerEvents = 'auto'
+            blocks[i].style.cursor = 'pointer'
+        }
+    }, 750 * simon.length)
 }
 
 for (let i=0; i < blocks.length ; i++) {
     blocks[i].setAttribute('dataset', i)
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
-    blocks[i].classList.add(colors[Math.floor(i)])
-    
+    blocks[i].classList.add(colors[i])
     blocks[i].sound = sounds[i]
+    blocks[i].addEventListener('click', playerTurn)
+    blocks[i].addEventListener('click', showClick)
+    blocks[i].style.pointerEvents = 'auto'
+    blocks[i].style.cursor = 'pointer'
 }
 
 newGame.addEventListener('click', startGame)
@@ -36,8 +44,8 @@ function startGame() {
         let randomColor = Math.floor(Math.random()*16777215).toString(16)
         blocks[i].style.backgroundColor = '#' + randomColor
     }
+    simonTurn = true
     gameBoard.classList.remove('rotate')
-    mid.classList.remove('rotate')
     gameWon = false
     simon = []
     player = []
@@ -45,6 +53,7 @@ function startGame() {
     loser.innerText = ""
     score = 0
     simon.push(Math.floor(Math.random() * 4))
+    simonTurn = true
     showValues()
     resetListen()
 }
@@ -57,9 +66,8 @@ function showValues() {
 
 function highlight(value, interval) { 
     console.log(value)
-    setTimeout(function() {value.classList.add('highlight'); value.sound.play()}, (interval * 750) + 250)
-    setTimeout(function() {value.classList.remove('highlight')}, (interval * 750) + 750)
-    setTimeout(resetListen, (interval * 750) + 750)
+    setTimeout(function() {value.classList.add('highlight'); value.sound.play();}, (interval * 750) + 250)
+    setTimeout(function() {value.classList.remove('highlight');}, (interval * 750) + 750)
 }
 
 let header = document.querySelector('h1')
@@ -75,6 +83,9 @@ function playerTurn(e) {
     e.preventDefault()
     player.push(e.target.blockPosition[0])
     console.log(pIndex)
+    // for (let i=0; i < blocks.length; i++) {
+    //     blocks[i].style.pointerEvents = 'none'
+    // }
     if (gameWon === false) {
         compareValues()
     }
@@ -86,6 +97,9 @@ function compareValues() {
     console.log(player)
     if (player.length === simon.length) {
         count = 0
+        for (let i=0; i < blocks.length; i++) {
+            blocks[i].style.pointerEvents = 'none'
+        }
         for (let i=0; i < player.length; i++) {
             if(simon[i] === player[i]) {
                 count++
@@ -100,9 +114,9 @@ function compareValues() {
                 horn.play()
                 mid.classList.add('rotate')
                 gameBoard.classList.add('rotate')
-                // for (let i=0; i < blocks.length; i++) {
-                //     highlight(blocks[i], i)
-                // }
+                for (let i=0; i < blocks.length; i++) {
+                    blocks[i].style.pointerEvents = 'none'
+                }
             } else {
                 newRound()
                 player = []
@@ -115,7 +129,7 @@ function compareValues() {
     } else {
         if(simon[count] === player[count]) {
             count++
-            resetListen()
+            // resetListen()
         } else {
             loserSays()
         }
@@ -130,14 +144,15 @@ function loserSays () {
     simon = []
     womp.play() 
     for (let i=0; i < blocks.length; i++) {
-        blocks[i].removeEventListener('click', playerTurn)
-        blocks[i].removeEventListener('click', showClick)
-        blocks[i].style.cursor = null
+        // blocks[i].removeEventListener('click', playerTurn)
+        // blocks[i].removeEventListener('click', showClick)
+        blocks[i].style.pointerEvents = 'none'
     }
 }        
 
 function newRound() {
     setTimeout(function() {
+        simonTurn = true
         simon.push(Math.floor(Math.random() * 4))
         let color = simon.pop()
         simon.push(color)
