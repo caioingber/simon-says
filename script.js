@@ -3,7 +3,7 @@ let player = []
 let blocks = document.querySelectorAll('.block')
 let score = 0
 let gameWon = false
-let gameScore = document.querySelector('#score')
+let gameScore = document.querySelector('.score')
 let newGame = document.querySelector('#new-game')
 let colors = ['yellow', 'blue', 'red', 'green']
 let sounds = document.querySelectorAll('.sounds')
@@ -13,8 +13,6 @@ let womp = document.querySelector('#womp')
 let horn = document.querySelector('#horn')
 horn.volume = 0.3
 womp.volume = 0.3
-let simonTurn = false;
-
 
 function resetListen () {
     setTimeout(reset, 750 * simon.length)
@@ -45,7 +43,6 @@ function startGame() {
         let randomColor = Math.floor(Math.random()*16777215).toString(16)
         blocks[i].style.backgroundColor = '#' + randomColor
     }
-    simonTurn = true
     gameBoard.classList.remove('rotate')
     gameWon = false
     simon = []
@@ -54,7 +51,6 @@ function startGame() {
     loser.innerText = ""
     score = 0
     simon.push(Math.floor(Math.random() * 4))
-    simonTurn = true
     showValues()
     resetListen()
 }
@@ -143,7 +139,6 @@ function loserSays () {
 
 function newRound() {
     setTimeout(function() {
-        simonTurn = true
         simon.push(Math.floor(Math.random() * 4))
         let color = simon.pop()
         simon.push(color)
