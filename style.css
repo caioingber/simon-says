@@ -23,11 +23,10 @@ body {
     height: 400px;
     width: 400px;
     position: relative;
-    transform:   rotateX(45deg);
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 5vw;
     margin-bottom: 0;
 }
 
@@ -97,7 +96,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: rotateX(50deg) translateY(35%);
+    transform: translateY(35%);
 
 }
 
