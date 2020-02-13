@@ -11,18 +11,22 @@ let gameBoard = document.querySelector('#simon')
 let mid = document.querySelector('.middle')
 let womp = document.querySelector('#womp')
 let horn = document.querySelector('#horn')
+horn.volume = 0.3
+womp.volume = 0.3
 let simonTurn = false;
 
 
 function resetListen () {
-    setTimeout(function(){
-        for (let i=0; i < blocks.length; i++) {
-            blocks[i].addEventListener('click', playerTurn)
-            blocks[i].addEventListener('click', showClick)
-            blocks[i].style.pointerEvents = 'auto'
-            blocks[i].style.cursor = 'pointer'
-        }
-    }, 750 * simon.length)
+    setTimeout(reset, 750 * simon.length)
+}
+
+function reset () {
+    for (let i=0; i < blocks.length; i++) {
+    blocks[i].addEventListener('click', playerTurn)
+    blocks[i].addEventListener('click', showClick)
+    blocks[i].style.pointerEvents = 'auto'
+    blocks[i].style.cursor = 'pointer'
+    }
 }
 
 for (let i=0; i < blocks.length ; i++) {
@@ -31,10 +35,7 @@ for (let i=0; i < blocks.length ; i++) {
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
     blocks[i].sound = sounds[i]
-    blocks[i].addEventListener('click', playerTurn)
-    blocks[i].addEventListener('click', showClick)
-    blocks[i].style.pointerEvents = 'auto'
-    blocks[i].style.cursor = 'pointer'
+    reset()
 }
 
 newGame.addEventListener('click', startGame)
@@ -70,22 +71,15 @@ function highlight(value, interval) {
     setTimeout(function() {value.classList.remove('highlight');}, (interval * 750) + 750)
 }
 
-let header = document.querySelector('h1')
-header.addEventListener('click', showClick)
-
 function showClick() {
     highlight(this, -.5)
 }
 
 let pIndex = 0
 function playerTurn(e) {
-    // highlight when player clicks block
     e.preventDefault()
     player.push(e.target.blockPosition[0])
     console.log(pIndex)
-    // for (let i=0; i < blocks.length; i++) {
-    //     blocks[i].style.pointerEvents = 'none'
-    // }
     if (gameWon === false) {
         compareValues()
     }
@@ -129,7 +123,6 @@ function compareValues() {
     } else {
         if(simon[count] === player[count]) {
             count++
-            // resetListen()
         } else {
             loserSays()
         }
@@ -144,8 +137,6 @@ function loserSays () {
     simon = []
     womp.play() 
     for (let i=0; i < blocks.length; i++) {
-        // blocks[i].removeEventListener('click', playerTurn)
-        // blocks[i].removeEventListener('click', showClick)
         blocks[i].style.pointerEvents = 'none'
     }
 }        
