@@ -6,6 +6,7 @@ let gameWon = false
 let gameScore = document.querySelector('#score')
 let newGame = document.querySelector('#new-game')
 let colors = ['yellow', 'blue', 'red', 'green']
+let sounds = document.querySelectorAll('.sounds')
 
 resetListen = () => {
     for (let i=0; i < blocks.length; i++) {
@@ -20,6 +21,7 @@ for (let i=0; i < blocks.length; i++) {
     blocks[i].blockPosition = []
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
+    blocks[i].sound = sounds[i]
 }
 
 newGame.addEventListener('click', startGame)
@@ -44,7 +46,7 @@ function showValues() {
 
 function highlight(value, interval) { 
     console.log(value)
-    setTimeout(function() {value.classList.add('highlight')}, (interval * 750) + 250)
+    setTimeout(function() {value.classList.add('highlight'); value.sound.play()}, (interval * 750) + 250)
     setTimeout(function() {value.classList.remove('highlight')}, (interval * 750) + 750)
     setTimeout(resetListen, (interval * 750) + 750)
 }
@@ -85,9 +87,7 @@ function compareValues() {
                 gameScore.innerText = score
                 gameWon = true
                 for (let i=0; i < blocks.length; i++) {
-                    highlight(blocks[i], 1)
-                    highlight(blocks[i], 2)
-                    highlight(blocks[i], 3)
+                    highlight(blocks[i], i)
                 }
             } else {
                 newRound()
