@@ -147,3 +147,21 @@ function newRound() {
         resetListen()
     }, 1500)
 }
+
+//Modal JS
+
+showModal = () => {
+    modal.classList.add('show-mod')
+}
+
+closeModal = () => {
+    modal.classList.remove('show-mod')
+}
+
+let openModal = document.querySelector('#question')
+openModal.addEventListener('click', showModal)
+
+let modal = document.querySelector('.modal-container')
+
+let close = document.querySelector('#close')
+close.addEventListener('click', closeModal)
