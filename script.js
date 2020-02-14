@@ -52,9 +52,6 @@ function startGame() {
     loser.innerText = ""
     score = 0
     newRound()
-    // simon.push(Math.floor(Math.random() * 4))
-    // showValues()
-    // resetListen()
 }
 
 function showValues() {
