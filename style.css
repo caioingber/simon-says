@@ -7,6 +7,7 @@ body {
     font-family: 'Arcade';
     height: 100%;
     position: relative;
+    margin: 0;
 }
 
 #simon {
@@ -25,7 +26,6 @@ body {
 h1 {
     font-size: 5vw;
     margin-bottom: 0;
-    /* position: relative; */
 }
 
 h2 {
@@ -33,7 +33,7 @@ h2 {
     border: 2px solid white;
     border-radius: 100%;
     margin: 15px 0;
-    padding: 10%;
+    padding: 15%;
     font-size: 40px;
 }
 
@@ -128,6 +128,7 @@ h2 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 4vw;
+    /* height: auto; */
 }
 
 #question {
@@ -144,11 +145,17 @@ h2 {
 }
 
 .modal-container {
+    /* box-sizing: content-box; */
     z-index: -1;
-    position: fixed;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     opacity: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow: auto;
     background-color: rgb(126, 118, 118, .7);
     transform: scale(0);
     transition: 1s cubic-bezier(0.175, 0.885, 0.32, 2);
