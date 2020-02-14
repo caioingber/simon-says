@@ -44,6 +44,8 @@ function startGame() {
         blocks[i].style.backgroundColor = '#' + randomColor
         blocks[i].classList.remove('rote-lose')
     }
+    newGame.style.pointerEvents = 'none'
+    setTimeout(() => newGame.style.pointerEvents = 'auto', 2000)
     gameBoard.classList.remove('rotate')
     gameWon = false
     simon = []
