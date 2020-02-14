@@ -97,7 +97,7 @@ function compareValues() {
         }
         if (count === simon.length) {
             score += 1
-            if(score === 2) {
+            if(score === 10) {
                 loser.innerText = "Congratulations, You've Won! 🙌🙌🙌"
                 gameScore.innerText = score
                 gameWon = true
