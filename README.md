@@ -4,7 +4,9 @@
 
 For this project, I created a version of the classic Hasbro game Simon. The project serves as a culmination of completing my first unit at General Assembly's Software Engineering where we delved into front-end web development, utilizing HTML, CSS, & Javascript.
 
-!(simon-screenshot.png)
+Link to [deployed game](https://caioingber.github.io/simon-says/)
+
+![](simon-screenshot.png)
 
 ## Development
 
