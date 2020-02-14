@@ -33,7 +33,6 @@ for (let i=0; i < blocks.length ; i++) {
     blocks[i].blockPosition.push(Number(blocks[i].attributes[1].value))
     blocks[i].classList.add(colors[i])
     blocks[i].sound = sounds[i]
-    reset()
 }
 
 newGame.addEventListener('click', startGame)
