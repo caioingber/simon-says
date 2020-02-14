@@ -77,16 +77,21 @@ h2 {
 }
 
 .highlight {
-    transition: opacity .75s linear;
+    transition: opacity .5s linear;
     opacity: 0;
 }
 
 #new-game{
     border: 2px solid white;
-    border-radius: 5%;
+    border-radius: 10%;
     padding: 5%;
     cursor: pointer;
     text-align: center;
+}
+
+#new-game:hover {
+    border: 2px solid greenyellow;
+    color: greenyellow;
 }
 
 #loser {
@@ -113,6 +118,11 @@ h2 {
     transition: 2s cubic-bezier(0.175, 0.885, 0.32, 3);
 }
 
+.rote-lose {
+    transform: rotateZ(180deg);
+    transition: 3s cubic-bezier(0.39,-0.76, 0.32, 2)
+}
+
 .score {
     height: 15px;
     text-align: center;
@@ -129,6 +139,10 @@ h2 {
     font-size: 4vw;
 }
 
+.button:hover {
+    text-shadow: gray 2px 2px;
+}
+
 .modal-container {
     z-index: -1;
     position: fixed;
@@ -137,7 +151,7 @@ h2 {
     height: 100%;
     background-color: rgb(126, 118, 118, .7);
     transform: scale(0);
-    transition: 2s cubic-bezier(0.175, 0.885, 0.32, 3);
+    transition: 1s cubic-bezier(0.175, 0.885, 0.32, 2);
 }
 
 #modal {
@@ -175,5 +189,11 @@ h2 {
     #new-game {
         font-size: 15px;
         padding: 2%
+    }
+    
+    #modal {
+        width: 50%;
+        padding-top: 0;
+        font-size: 3vw;
     }
 }

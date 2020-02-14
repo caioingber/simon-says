@@ -15,15 +15,15 @@ horn.volume = 0.3
 womp.volume = 0.3
 
 function resetListen () {
-    setTimeout(reset, 750 * simon.length)
+    setTimeout(reset, 500 * simon.length)
 }
 
 function reset () {
     for (let i=0; i < blocks.length; i++) {
-    blocks[i].addEventListener('click', playerTurn)
-    blocks[i].addEventListener('click', showClick)
-    blocks[i].style.pointerEvents = 'auto'
-    blocks[i].style.cursor = 'pointer'
+        blocks[i].addEventListener('click', playerTurn)
+        blocks[i].addEventListener('click', showClick)
+        blocks[i].style.pointerEvents = 'auto'
+        blocks[i].style.cursor = 'pointer'
     }
 }
 
@@ -42,6 +42,7 @@ function startGame() {
     for (let i=0; i < blocks.length ; i++) {
         let randomColor = Math.floor(Math.random()*16777215).toString(16)
         blocks[i].style.backgroundColor = '#' + randomColor
+        blocks[i].classList.remove('rote-lose')
     }
     gameBoard.classList.remove('rotate')
     gameWon = false
@@ -50,9 +51,10 @@ function startGame() {
     gameScore.innerText = 0
     loser.innerText = ""
     score = 0
-    simon.push(Math.floor(Math.random() * 4))
-    showValues()
-    resetListen()
+    newRound()
+    // simon.push(Math.floor(Math.random() * 4))
+    // showValues()
+    // resetListen()
 }
 
 function showValues() {
@@ -63,8 +65,8 @@ function showValues() {
 
 function highlight(value, interval) { 
     console.log(value)
-    setTimeout(function() {value.classList.add('highlight'); value.sound.play();}, (interval * 750) + 250)
-    setTimeout(function() {value.classList.remove('highlight');}, (interval * 750) + 750)
+    setTimeout(function() {value.classList.add('highlight'); value.sound.play();}, (interval * 500) + 250)
+    setTimeout(function() {value.classList.remove('highlight');}, (interval * 500) + 500)
 }
 
 function showClick() {
@@ -97,13 +99,13 @@ function compareValues() {
         }
         if (count === simon.length) {
             score += 1
-            if(score === 3) {
+            if(score === 2) {
                 loser.innerText = "Congratulations, You've Won! 🙌🙌🙌"
                 gameScore.innerText = score
                 gameWon = true
                 horn.play()
-                mid.classList.add('rotate')
-                gameBoard.classList.add('rotate')
+                    mid.classList.add('rotate')
+                    gameBoard.classList.add('rotate')
                 for (let i=0; i < blocks.length; i++) {
                     blocks[i].style.pointerEvents = 'none'
                 }
@@ -133,6 +135,7 @@ function loserSays () {
     simon = []
     womp.play() 
     for (let i=0; i < blocks.length; i++) {
+        blocks[i].classList.add('rote-lose')
         blocks[i].style.pointerEvents = 'none'
     }
 }        
@@ -140,12 +143,9 @@ function loserSays () {
 function newRound() {
     setTimeout(function() {
         simon.push(Math.floor(Math.random() * 4))
-        let color = simon.pop()
-        simon.push(color)
-        console.log(simon)
         showValues()
         resetListen()
-    }, 1500)
+    }, 1000)
 }
 
 //Modal JS
